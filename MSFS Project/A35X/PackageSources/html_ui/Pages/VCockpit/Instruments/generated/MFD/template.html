@@ -9,8 +9,12 @@
         // We embed it into this file, even though it is useless, because this file can
         // be hot-reloaded, but `template.js` cannot.
         /* eslint-disable */
-        (function () {
+        (function (exports) {
 	'use strict';
+
+	function getDefaultExportFromCjs (x) {
+		return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+	}
 
 	function createCommonjsModule(fn, basedir, module) {
 		return module = {
@@ -25,6 +29,27 @@
 	function commonjsRequire () {
 		throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
 	}
+
+	var defineProperty = createCommonjsModule(function (module) {
+	  function _defineProperty(obj, key, value) {
+	    if (key in obj) {
+	      Object.defineProperty(obj, key, {
+	        value: value,
+	        enumerable: true,
+	        configurable: true,
+	        writable: true
+	      });
+	    } else {
+	      obj[key] = value;
+	    }
+
+	    return obj;
+	  }
+
+	  module.exports = _defineProperty;
+	  module.exports["default"] = module.exports, module.exports.__esModule = true;
+	});
+	var _defineProperty = /*@__PURE__*/getDefaultExportFromCjs(defineProperty);
 
 	/*
 	object-assign
@@ -8510,30 +8535,6 @@
 	  }
 	});
 
-	/*
-	 * A32NX
-	 * Copyright (C) 2020-2021 FlyByWire Simulations and its contributors
-	 *
-	 * This program is free software: you can redistribute it and/or modify
-	 * it under the terms of the GNU General Public License as published by
-	 * the Free Software Foundation, either version 3 of the License, or
-	 * (at your option) any later version.
-	 *
-	 * This program is distributed in the hope that it will be useful,
-	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
-	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 * GNU General Public License for more details.
-	 *
-	 * You should have received a copy of the GNU General Public License
-	 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-	 */
-	const renderTarget = document.getElementById('A35X_REACT_MOUNT');
-	const customElement = renderTarget.parentElement; // @param {() => void} handler
-	const SIMVAR_CACHE = new Map();
-	customElement.addEventListener('update', () => {
-	  SIMVAR_CACHE.clear();
-	});
-
 	var reactJsxRuntime_production_min = createCommonjsModule(function (module, exports) {
 
 	  var g = 60103;
@@ -8590,27 +8591,824 @@
 	  }
 	});
 
-	const MFD_SCREEN = () => {
-	  return /*#__PURE__*/jsxRuntime.jsx("div", {
-	    children: /*#__PURE__*/jsxRuntime.jsx("h1", {
-	      id: "text",
-	      children: "MFD"
-	    })
+	let DropdownType;
+
+	(function (DropdownType) {
+	  DropdownType[DropdownType["system_select"] = 0] = "system_select";
+	  DropdownType[DropdownType["general_bar"] = 1] = "general_bar";
+	})(DropdownType || (DropdownType = {}));
+
+	class Dropdown extends react.Component {
+	  constructor(props) {
+	    super(props);
+
+	    _defineProperty(this, "state", void 0);
+
+	    this.state = {
+	      open: false,
+	      selected: props.items[0].toString()
+	    };
+	    this.selectItem = this.selectItem.bind(this);
+	    this.toggleOpen = this.toggleOpen.bind(this);
+	  }
+
+	  toggleOpen() {
+	    this.setState({
+	      open: !this.state.open
+	    });
+	  }
+
+	  selectItem(index) {
+	    console.log("Item Index is " + index);
+	    this.props.onSelect(index);
+	    this.setState({
+	      selected: this.props.items[index].toString()
+	    });
+	    this.toggleOpen();
+	  }
+
+	  render() {
+	    if (!this.state.open) {
+	      switch (this.props.type) {
+	        case DropdownType.system_select:
+	          return /*#__PURE__*/jsxRuntime.jsxs("button", {
+	            style: {
+	              left: this.props.offsetX + "%",
+	              top: this.props.offseY + "%"
+	            },
+	            onClick: () => this.toggleOpen(),
+	            className: "bck-grey dropdown-system-body",
+	            children: [/*#__PURE__*/jsxRuntime.jsxs("div", {
+	              className: "bck-black drop-top-inner",
+	              children: [" ", this.state.selected]
+	            }), /*#__PURE__*/jsxRuntime.jsx("img", {
+	              className: "drop-arrow",
+	              src: "../Assets/DownArrow.png",
+	              alt: ""
+	            })]
+	          });
+
+	        case DropdownType.general_bar:
+	          return /*#__PURE__*/jsxRuntime.jsxs("button", {
+	            style: {
+	              left: this.props.offsetX + "%",
+	              top: this.props.offseY + "%"
+	            },
+	            onClick: () => this.toggleOpen(),
+	            className: "bck-grey dropdown-general-body",
+	            children: [this.state.selected, /*#__PURE__*/jsxRuntime.jsx("img", {
+	              className: "drop-arrow",
+	              src: "../Assets/DownArrow.png",
+	              alt: ""
+	            })]
+	          });
+	      }
+	    } else {
+	      var item_elements = [];
+	      this.props.items.map((item, index) => item_elements.push( /*#__PURE__*/jsxRuntime.jsx("span", {
+	        style: {
+	          top: index * (100 / this.props.items.length) + "%"
+	        },
+	        onClick: () => this.selectItem(index),
+	        className: "drop-item",
+	        children: item
+	      })));
+
+	      switch (this.props.type) {
+	        case DropdownType.system_select:
+	          return /*#__PURE__*/jsxRuntime.jsxs("button", {
+	            style: {
+	              left: this.props.offsetX + "%",
+	              top: this.props.offseY + "%"
+	            },
+	            onClick: () => this.toggleOpen(),
+	            className: "bck-grey dropdown-system-body",
+	            children: [/*#__PURE__*/jsxRuntime.jsx("div", {
+	              className: "bck-black drop-top-inner",
+	              children: this.state.selected
+	            }), /*#__PURE__*/jsxRuntime.jsx("img", {
+	              className: "drop-arrow",
+	              src: "../Assets/DownArrow.png",
+	              alt: ""
+	            }), /*#__PURE__*/jsxRuntime.jsx("div", {
+	              style: {
+	                height: this.props.items.length * 80 + "%"
+	              },
+	              className: "bck-blue-grey\r drop-lower-body",
+	              children: /*#__PURE__*/jsxRuntime.jsx("div", {
+	                className: "bck-dark-grey drop-lower-inner",
+	                children: item_elements
+	              })
+	            })]
+	          });
+
+	        case DropdownType.general_bar:
+	          return /*#__PURE__*/jsxRuntime.jsxs("button", {
+	            style: {
+	              left: this.props.offsetX + "%",
+	              top: this.props.offseY + "%"
+	            },
+	            onClick: () => this.toggleOpen(),
+	            className: "bck-grey dropdown-general-body",
+	            children: [this.state.selected, /*#__PURE__*/jsxRuntime.jsx("img", {
+	              className: "drop-arrow",
+	              src: "../Assets/DownArrow.png",
+	              alt: ""
+	            }), /*#__PURE__*/jsxRuntime.jsx("div", {
+	              style: {
+	                height: this.props.items.length * 80 + "%"
+	              },
+	              className: "bck-blue-grey\r drop-lower-body",
+	              children: /*#__PURE__*/jsxRuntime.jsx("div", {
+	                className: "bck-dark-grey drop-lower-inner",
+	                children: item_elements
+	              })
+	            })]
+	          });
+	      }
+	    }
+	  }
+
+	}
+
+	var objectWithoutPropertiesLoose = createCommonjsModule(function (module) {
+	  function _objectWithoutPropertiesLoose(source, excluded) {
+	    if (source == null) return {};
+	    var target = {};
+	    var sourceKeys = Object.keys(source);
+	    var key, i;
+
+	    for (i = 0; i < sourceKeys.length; i++) {
+	      key = sourceKeys[i];
+	      if (excluded.indexOf(key) >= 0) continue;
+	      target[key] = source[key];
+	    }
+
+	    return target;
+	  }
+
+	  module.exports = _objectWithoutPropertiesLoose;
+	  module.exports["default"] = module.exports, module.exports.__esModule = true;
+	});
+
+	var objectWithoutProperties = createCommonjsModule(function (module) {
+	  function _objectWithoutProperties(source, excluded) {
+	    if (source == null) return {};
+	    var target = objectWithoutPropertiesLoose(source, excluded);
+	    var key, i;
+
+	    if (Object.getOwnPropertySymbols) {
+	      var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+
+	      for (i = 0; i < sourceSymbolKeys.length; i++) {
+	        key = sourceSymbolKeys[i];
+	        if (excluded.indexOf(key) >= 0) continue;
+	        if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+	        target[key] = source[key];
+	      }
+	    }
+
+	    return target;
+	  }
+
+	  module.exports = _objectWithoutProperties;
+	  module.exports["default"] = module.exports, module.exports.__esModule = true;
+	});
+	var _objectWithoutProperties = /*@__PURE__*/getDefaultExportFromCjs(objectWithoutProperties);
+
+	const Input = (_ref) => {
+	  let {
+	    type,
+	    characterLimit,
+	    value: propsValue,
+	    posX,
+	    posY,
+	    onChange: onChangeProps,
+	    className: propsClassName
+	  } = _ref,
+	      props = _objectWithoutProperties(_ref, ["type", "characterLimit", "value", "posX", "posY", "onChange", "className"]);
+
+	  const onChange = value => {
+	    if (value !== "") onChangeProps(value);
+	  };
+
+	  function currentColour() {
+	    if (propsValue === "") return "";else return "grey";
+	  }
+
+	  return /*#__PURE__*/jsxRuntime.jsx("input", {
+	    className: (props.disabled ? "disabled " : " ") + propsClassName,
+	    maxLength: characterLimit,
+	    style: {
+	      left: posX + "%",
+	      top: posY + "%",
+	      color: currentColour()
+	    },
+	    disabled: props.disabled,
+	    type: type,
+	    placeholder: Array((characterLimit ? characterLimit : 0) + 1).join(props.disabled ? '-' : '0'),
+	    value: propsValue,
+	    onChange: event => onChange(event.target.value)
 	  });
 	};
 
+	const Button = (_ref) => {
+	  let {
+	    onClick
+	  } = _ref,
+	      props = _objectWithoutProperties(_ref, ["onClick"]);
+
+	  return /*#__PURE__*/jsxRuntime.jsx("button", {
+	    style: {
+	      left: props.posX + "%",
+	      top: props.posY + "%",
+	      color: props.disabled ? "rgb(180,180,180)" : "white"
+	    },
+	    className: props.className,
+	    disabled: props.disabled,
+	    onClick: onClick,
+	    children: props.children
+	  });
+	};
+
+	class FMS_Init extends react.Component {
+	  execute() {}
+
+	  render() {
+	    var row1Y = 1.5;
+	    var row2Y = 10;
+	    return /*#__PURE__*/jsxRuntime.jsxs("div", {
+	      className: "fms-page",
+	      children: [/*#__PURE__*/jsxRuntime.jsx("h2", {
+	        style: {
+	          top: row1Y + "%"
+	        },
+	        children: "FLT NBR"
+	      }), /*#__PURE__*/jsxRuntime.jsx(Input, {
+	        onChange: value => this.setState({
+	          flightNum: value
+	        }),
+	        characterLimit: 10,
+	        className: "large-input",
+	        posX: 18.5,
+	        posY: row1Y,
+	        type: "text"
+	      }), /*#__PURE__*/jsxRuntime.jsx(Button, {
+	        className: "large-button",
+	        posX: 50,
+	        posY: row1Y,
+	        children: "ACFT STATUS"
+	      }), /*#__PURE__*/jsxRuntime.jsx(Button, {
+	        disabled: true,
+	        className: "medium-button",
+	        posX: 77,
+	        posY: row1Y - 1,
+	        children: "CPNY F-PLN REQUEST"
+	      }), /*#__PURE__*/jsxRuntime.jsx("h2", {
+	        style: {
+	          top: row2Y + "%"
+	        },
+	        children: "FROM"
+	      }), /*#__PURE__*/jsxRuntime.jsx(Input, {
+	        onChange: value => this.setState({
+	          from: value
+	        }),
+	        characterLimit: 4,
+	        className: "small-input",
+	        posX: 18.5,
+	        posY: row2Y,
+	        type: "text"
+	      }), /*#__PURE__*/jsxRuntime.jsx("h2", {
+	        style: {
+	          top: row2Y + "%",
+	          right: "63%"
+	        },
+	        children: "TO"
+	      }), /*#__PURE__*/jsxRuntime.jsx(Input, {
+	        onChange: value => this.setState({
+	          to: value
+	        }),
+	        characterLimit: 4,
+	        className: "small-input",
+	        posX: 38,
+	        posY: row2Y,
+	        type: "text"
+	      }), /*#__PURE__*/jsxRuntime.jsx("h2", {
+	        style: {
+	          top: row2Y + "%",
+	          right: "39%"
+	        },
+	        children: "ALTN"
+	      }), /*#__PURE__*/jsxRuntime.jsx(Input, {
+	        disabled: true,
+	        onChange: value => this.setState({
+	          altnRte: value
+	        }),
+	        characterLimit: 4,
+	        className: "small-input",
+	        posX: 62,
+	        posY: row2Y,
+	        type: "text"
+	      }), /*#__PURE__*/jsxRuntime.jsx("h2", {
+	        style: {
+	          top: "20.5%"
+	        },
+	        children: "CPNY RTE"
+	      }), /*#__PURE__*/jsxRuntime.jsx(Input, {
+	        onChange: value => this.setState({
+	          cpnyRte: value
+	        }),
+	        characterLimit: 10,
+	        className: "large-input",
+	        posX: 18.5,
+	        posY: 20.5,
+	        type: "text"
+	      }), /*#__PURE__*/jsxRuntime.jsx(Button, {
+	        disabled: true,
+	        className: "large-button",
+	        posX: 50,
+	        posY: 20.5,
+	        children: "RTE SEL"
+	      }), /*#__PURE__*/jsxRuntime.jsx("h2", {
+	        style: {
+	          top: "28%"
+	        },
+	        children: "ALTN RTE"
+	      }), /*#__PURE__*/jsxRuntime.jsx(Input, {
+	        disabled: true,
+	        onChange: value => this.setState({
+	          cpnyRte: value
+	        }),
+	        characterLimit: 10,
+	        className: "large-input",
+	        posX: 18.5,
+	        posY: 28,
+	        type: "text"
+	      }), /*#__PURE__*/jsxRuntime.jsx(Button, {
+	        disabled: true,
+	        className: "large-button",
+	        posX: 50,
+	        posY: 28,
+	        children: "ALTN RTE SEL"
+	      })]
+	    });
+	  }
+
+	}
+
+	class FMS_Sys extends react.Component {
+	  constructor(props) {
+	    super(props);
+
+	    _defineProperty(this, "state", void 0);
+
+	    this.state = {
+	      currentPage: "ACTIVE/INIT"
+	    };
+	  }
+
+	  currentPage() {
+	    switch (this.state.currentPage) {
+	      case "ACTIVE/INIT":
+	        return /*#__PURE__*/jsxRuntime.jsx(FMS_Init, {});
+	    }
+	  }
+
+	  render() {
+	    return /*#__PURE__*/jsxRuntime.jsxs("div", {
+	      className: "SystemWindow",
+	      children: [/*#__PURE__*/jsxRuntime.jsx(Dropdown, {
+	        onSelect: i => console.log("Selected " + i),
+	        type: DropdownType.general_bar,
+	        items: ["ACTIVE"]
+	      }), /*#__PURE__*/jsxRuntime.jsx(Dropdown, {
+	        onSelect: i => console.log("Selected " + i),
+	        offsetX: 25,
+	        type: DropdownType.general_bar,
+	        items: ["POSITION"]
+	      }), /*#__PURE__*/jsxRuntime.jsx(Dropdown, {
+	        onSelect: i => console.log("Selected " + i),
+	        offsetX: 50,
+	        type: DropdownType.general_bar,
+	        items: ["SEC INDEX"]
+	      }), /*#__PURE__*/jsxRuntime.jsx(Dropdown, {
+	        onSelect: i => console.log("Selected " + i),
+	        offsetX: 75,
+	        type: DropdownType.general_bar,
+	        items: ["DATA"]
+	      }), /*#__PURE__*/jsxRuntime.jsx("div", {
+	        id: "fms-header",
+	        className: "bck-white frnt-grey",
+	        children: /*#__PURE__*/jsxRuntime.jsx("h1", {
+	          children: this.state.currentPage
+	        })
+	      }), this.currentPage()]
+	    });
+	  }
+
+	}
+
+	class ATC_COM_Sys extends react.Component {
+	  render() {
+	    return /*#__PURE__*/jsxRuntime.jsx("div", {
+	      className: "SystemWindow",
+	      children: "ATC Com System"
+	    });
+	  }
+
+	}
+
+	class SURV_Sys extends react.Component {
+	  render() {
+	    return /*#__PURE__*/jsxRuntime.jsx("div", {
+	      className: "SystemWindow",
+	      children: "Survey System"
+	    });
+	  }
+
+	}
+
+	class Checklist_Sys extends react.Component {
+	  render() {
+	    return /*#__PURE__*/jsxRuntime.jsx("div", {
+	      className: "SystemWindow",
+	      children: "Checklist System"
+	    });
+	  }
+
+	}
+
+	class FCU_BKUP_Sys extends react.Component {
+	  render() {
+	    return /*#__PURE__*/jsxRuntime.jsx("div", {
+	      className: "SystemWindow",
+	      children: "FCU Backup System"
+	    });
+	  }
+
+	}
+
+	/*
+	 * A32NX
+	 * Copyright (C) 2020-2021 FlyByWire Simulations and its contributors
+	 *
+	 * This program is free software: you can redistribute it and/or modify
+	 * it under the terms of the GNU General Public License as published by
+	 * the Free Software Foundation, either version 3 of the License, or
+	 * (at your option) any later version.
+	 *
+	 * This program is distributed in the hope that it will be useful,
+	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 * GNU General Public License for more details.
+	 *
+	 * You should have received a copy of the GNU General Public License
+	 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	 */
+	const renderTarget = document.getElementById('A35X_REACT_MOUNT');
+	const customElement = renderTarget.parentElement; // @param {() => void} handler
+	const SIMVAR_TYPES = {
+	  '__proto__': null,
+	  'GPS POSITION LAT': 'degrees latitude',
+	  'L:APU_GEN_ONLINE': 'Bool',
+	  'EXTERNAL POWER AVAILABLE:1': 'Bool',
+	  'EXTERNAL POWER ON': 'Bool',
+	  'L:A32NX_COLD_AND_DARK_SPAWN': 'Bool',
+	  'TOTAL AIR TEMPERATURE': 'Celsius',
+	  'AMBIENT TEMPERATURE': 'Celsius',
+	  'L:A320_Neo_ADIRS_STATE': 'Enum'
+	};
+	const SIMVAR_CACHE = new Map();
+	customElement.addEventListener('update', () => {
+	  SIMVAR_CACHE.clear();
+	});
+	function getSimVar(name, type) {
+	  if (!SIMVAR_CACHE.has(name)) {
+	    SIMVAR_CACHE.set(name, SimVar.GetSimVarValue(name, type || SIMVAR_TYPES[name]));
+	  }
+
+	  return SIMVAR_CACHE.get(name);
+	}
+
+	class MFD_BODY extends react.Component {
+	  constructor(props) {
+	    super(props);
+
+	    _defineProperty(this, "state", void 0);
+
+	    this.state = {
+	      page: 0
+	    };
+	  }
+
+	  currentPage() {
+	    switch (this.state.page) {
+	      case 0:
+	        return /*#__PURE__*/jsxRuntime.jsx(FMS_Sys, {});
+
+	      case 1:
+	        return /*#__PURE__*/jsxRuntime.jsx(ATC_COM_Sys, {});
+
+	      case 2:
+	        return /*#__PURE__*/jsxRuntime.jsx(SURV_Sys, {});
+
+	      case 3:
+	        return /*#__PURE__*/jsxRuntime.jsx(Checklist_Sys, {});
+
+	      case 4:
+	        return /*#__PURE__*/jsxRuntime.jsx(FCU_BKUP_Sys, {});
+	    }
+	  }
+
+	  render() {
+	    return /*#__PURE__*/jsxRuntime.jsxs("div", {
+	      id: this.props.side,
+	      className: "mfd-body",
+	      children: [/*#__PURE__*/jsxRuntime.jsx(Dropdown, {
+	        type: DropdownType.system_select,
+	        onSelect: index => this.setState({
+	          page: index
+	        }),
+	        items: ["FMS" + (this.props.side === "left" ? "1" : "2"), "ATC COM", "SURV", "C/L MENU", "FCU BKUP"]
+	      }), /*#__PURE__*/jsxRuntime.jsx("span", {
+	        id: "flight-num",
+	        children: getSimVar("ATC FLIGHT NUMBER", "string")
+	      }), this.currentPage()]
+	    });
+	  }
+
+	}
+	const MFD_SCREEN = () => {
+	  return /*#__PURE__*/jsxRuntime.jsxs("body", {
+	    children: [/*#__PURE__*/jsxRuntime.jsx(MFD_BODY, {
+	      side: "left"
+	    }), /*#__PURE__*/jsxRuntime.jsx("div", {
+	      className: "bck-grey",
+	      id: "mfd-splitter"
+	    }), /*#__PURE__*/jsxRuntime.jsx(MFD_BODY, {
+	      side: "right"
+	    })]
+	  });
+	};
 	reactDom.render( /*#__PURE__*/jsxRuntime.jsx(MFD_SCREEN, {}), renderTarget);
 
-}());
+	exports.MFD_BODY = MFD_BODY;
+	exports.MFD_SCREEN = MFD_SCREEN;
+
+	Object.defineProperty(exports, '__esModule', { value: true });
+
+	return exports;
+
+}({}));
 
     </script>
     <style id="A35X_BUNDLED_STYLE">
         /* same deal as above */
-        #text {
+        @font-face {
+  font-family: "ECAM Regular";
+
+  src: url("/Fonts/ECAMFontRegular.ttf");
+}
+
+body {
+  padding: none;
+  margin: none;
+  background-color: black;
+  font-family: "ECAM Regular" !important;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+}
+
+/*Colours*/
+
+.bck-blue-grey {
+  background-color: #394a52;
+}
+
+.bck-grey {
+  background-color: #757575;
+}
+
+.frnt-grey {
+  color: #757575;
+}
+
+.bck-dark-grey {
+  background-color: #404040;
+}
+
+.bck-black {
+  background-color: black;
+}
+
+.bck-white {
+  background-color: white;
+}
+
+/* Components */
+
+button {
+  box-sizing: border-box;
   position: absolute;
+  color: white;
+  background-color: #757575;
+  border: 2px solid;
+  border-radius: 5px;
+  border-color: white black black white;
+  font-family: "ECAM Regular";
+}
+
+button:hover {
+  border-color: cyan;
+}
+
+/*Windows*/
+
+.mfd-body {
+  position: absolute;
+  background-color: black;
+  padding: 0.5% 1.5% 0.5% 1.5%;
+  box-sizing: border-box;
+  margin: 0;
+  height: 100%;
+  width: 49.5%;
+}
+
+#left {
+  left: 0;
+}
+
+#right {
+  left: 50.5%;
+}
+
+#mfd-splitter {
+  position: absolute;
+  box-sizing: border-box;
+  left: 49%;
+  top: 2%;
+  width: 2%;
+  height: 96%;
+  border: 1px solid white;
+}
+
+#flight-num {
+  position: absolute;
+  right: 5%;
+  top: 0.5%;
+  font-size: 200%;
+  color: white;
+}
+
+.SystemWindow {
+  position: absolute;
+  top: 4.25%;
+  width: 92%;
+  height: 80%;
+}
+.dropdown-system-body {
+  position: absolute;
+  height: 3.5%;
+  width: 20%;
+  color: cyan;
+}
+
+.dropdown-system-body .drop-top-inner {
+  text-align: left;
+  position: absolute;
+  width: 75%;
+  left: 2.5%;
+  top: 10%;
+  height: 80%;
+}
+
+.dropdown-system-body .drop-lower-body {
+  text-align: left;
+}
+
+.dropdown-general-body {
+  position: absolute;
+  height: 6.5%;
+  width: 25%;
+}
+
+.drop-lower-body {
   z-index: 1;
+  position: absolute;
+  width: 100%;
+  top: 100%;
+}
+
+.drop-lower-body .drop-lower-inner {
+  position: absolute;
+  left: 2.5%;
+  height: 95%;
+  width: 95%;
+}
+
+.drop-lower-body .drop-lower-inner .drop-item {
+  position: absolute;
+  left: 5%;
+  height: 95%;
+  width: 90%;
+}
+
+.drop-arrow {
+  position: absolute;
+  right: 5%;
+  top: 5%;
+}
+.fms-page {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 11%;
+}
+
+#fms-header {
+  position: absolute;
+  width: 100%;
+  top: 6.5%;
+  height: 4%;
+  border-radius: 5px;
+  text-align: left;
+  padding-top: 2px;
+  padding-left: 6px;
+  font-size: 90%;
+}
+h2 {
+  position: absolute;
+  right: 82.5%;
+  color: white;
+  font-size: 140%;
+  height: 5%;
+  padding-top: 1.5%;
+}
+
+input {
+  height: 5%;
+}
+
+button {
+  height: 5%;
+}
+
+.large-input {
+  width: 30%;
+}
+
+.medium-input {
+  width: 7.5%;
+}
+
+.small-input {
+  width: 13%;
+}
+
+.large-button {
+  width: 25%;
+}
+
+.medium-button {
+  width: 22%;
+  height: 7%;
+}
+@font-face {
+  font-family: "ECAM Regular";
+
+  src: url("/Fonts/ECAMFontRegular.ttf");
+}
+
+input {
+  position: absolute;
+  border: 2px solid;
+  font-size: 180%;
+  font-family: "ECAM Regular" !important;
+  box-sizing: border-box;
+  background-color: black;
+  border-radius: 5px;
+  border-color: #141414 white white #141414;
+  text-transform: uppercase;
   text-align: center;
-  font-size: 200px;
+}
+
+input::placeholder {
+  color: orange;
+  text-align: center;
+}
+
+.disabled::placeholder {
+  color: grey;
+}
+
+input:hover {
+  border-color: cyan;
 }
     </style>
 </script>

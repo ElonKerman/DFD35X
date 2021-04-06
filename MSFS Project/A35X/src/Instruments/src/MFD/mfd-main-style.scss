@@ -1,6 +1,104 @@
-#text {
+@font-face {
+    font-family: "ECAM Regular";
+    src: url("/Fonts/ECAMFontRegular.ttf");
+}
+
+body {
+    padding: none;
+    margin: none;
+    background-color: black;
+    font-family: "ECAM Regular" !important;
+}
+h1{
+    margin:0;
+}
+h2{
+    margin: 0;
+}
+/*Colours*/
+
+$grey:  #757575;
+$outline-black: rgb(10,10,10);
+.bck-blue-grey
+{
+    background-color: #394a52;
+}
+.bck-grey
+{
+    background-color: $grey;
+}
+.frnt-grey
+{
+    color: $grey;
+}
+.bck-dark-grey
+{
+    background-color: #404040;
+}
+.bck-black
+{
+    background-color: black;
+}
+.bck-white
+{
+    background-color: white;
+}
+
+/* Components */
+button{
+    box-sizing: border-box;
     position: absolute;
-    z-index: 1;
-    text-align: center;
-    font-size: 200px;
+    color: white;
+    background-color: $grey;
+    border: 2px solid;
+    border-radius: 5px;
+    border-color: white black black white;
+    font-family: "ECAM Regular";
+}
+button:hover
+{
+    border-color: cyan;
+}
+/*Windows*/
+.mfd-body {
+    position: absolute;
+    background-color: black;
+    padding: 0.5% 1.5% 0.5% 1.5%;
+    box-sizing: border-box;
+    margin: 0;
+    height: 100%;
+    width: 49.5%;
+}
+
+#left {
+    left: 0;
+}
+
+#right {
+    left: 50.5%;
+}
+
+#mfd-splitter {
+    position: absolute;
+    box-sizing: border-box;
+    left: 49%;
+    top: 2%;
+    width: 2%;
+    height: 96%;
+    border: 1px solid white;
+}
+#flight-num
+{
+    position: absolute;
+    right: 5%;
+    top: 0.5%;
+    font-size: 200%;
+    color: white;
+}
+.SystemWindow
+{
+    position: absolute;
+    top: 4.25%;
+    width: 92%;
+    height: 80%;
 }

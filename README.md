@@ -5,9 +5,6 @@
 DFD35X is an open-source project started by Digital Flight Dynamics in order to create a realistic and high-quality Airbus A350 XWB for Microsoft Flight Simulator 2020.
 At the moment this project is still in very early stages, so if you contribute, we would highly appreciate it. If you want to follow our frequent progress updates, join our discord server above.
 
-## Installation
-If you want to install the aircraft, head over to the installer github repository and follow the instructions in `readme.md`: https://github.com/Dynamic6448/DFD350-Installer
-
 ## FAQ
 **1. When will the DFD35X project be released as Version 1.0?**  
 The aircraft will release when models & systems are complete, and polished to the point where it has little to no bugs.  

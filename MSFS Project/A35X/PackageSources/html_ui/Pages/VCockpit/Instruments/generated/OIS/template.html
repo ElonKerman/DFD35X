@@ -8534,6 +8534,8 @@
 	  SIMVAR_CACHE.clear();
 	});
 
+	const oisContext = /*#__PURE__*/react.createContext({});
+
 	var reactJsxRuntime_production_min = createCommonjsModule(function (module, exports) {
 
 	  var g = 60103;
@@ -8590,28 +8592,381 @@
 	  }
 	});
 
-	const OIS_SCREEN = () => {
+	const OIS_MAIN_PAGE = props => {
+	  let context = react.useContext(oisContext);
 	  return /*#__PURE__*/jsxRuntime.jsx("div", {
-	    children: /*#__PURE__*/jsxRuntime.jsx("h1", {
-	      id: "text",
-	      children: "OIS"
+	    children: /*#__PURE__*/jsxRuntime.jsxs("div", {
+	      className: "main_page",
+	      children: [/*#__PURE__*/jsxRuntime.jsxs("div", {
+	        children: [/*#__PURE__*/jsxRuntime.jsx("button", {
+	          onClick: () => context.setOisPage(1),
+	          className: "btn company-com",
+	          children: "COMPANY COM"
+	        }), /*#__PURE__*/jsxRuntime.jsx("button", {
+	          className: "btn efb",
+	          children: "EFB"
+	        }), /*#__PURE__*/jsxRuntime.jsx("button", {
+	          className: "btn clear",
+	          children: "CLEAR"
+	        }), /*#__PURE__*/jsxRuntime.jsx("button", {
+	          className: "btn msg",
+	          children: "30 MSG"
+	        }), /*#__PURE__*/jsxRuntime.jsx("button", {
+	          className: "btn to_perf",
+	          children: "T.O PERF"
+	        }), /*#__PURE__*/jsxRuntime.jsx("button", {
+	          className: "btn flt_ops_sts",
+	          children: "FLT OPS STS"
+	        }), /*#__PURE__*/jsxRuntime.jsx("button", {
+	          className: "btn ldg_perf",
+	          children: "LDG PERF"
+	        }), /*#__PURE__*/jsxRuntime.jsx("button", {
+	          className: "btn in-flt_perf",
+	          children: "IN-FLT PERF"
+	        }), /*#__PURE__*/jsxRuntime.jsx("button", {
+	          className: "btn loadsheet",
+	          children: "LOADHSEET"
+	        }), /*#__PURE__*/jsxRuntime.jsx("button", {
+	          className: "btn ops_library",
+	          children: "OPS LIBRARY"
+	        }), /*#__PURE__*/jsxRuntime.jsx("button", {
+	          className: "btn enroute",
+	          children: "ENROUTE"
+	        }), /*#__PURE__*/jsxRuntime.jsx("button", {
+	          className: "btn terml_chart",
+	          children: "TERML CHART"
+	        }), /*#__PURE__*/jsxRuntime.jsx("button", {
+	          className: "btn load_box",
+	          children: "LOAD BOX"
+	        }), /*#__PURE__*/jsxRuntime.jsx("button", {
+	          className: "btn export_box",
+	          children: "EXPORT BOX"
+	        })]
+	      }), /*#__PURE__*/jsxRuntime.jsxs("div", {
+	        children: [/*#__PURE__*/jsxRuntime.jsx("label", {
+	          className: "lbl ois_menu",
+	          children: "OIS MENU"
+	        }), /*#__PURE__*/jsxRuntime.jsx("label", {
+	          className: "lbl avncs",
+	          children: "AVNCS"
+	        }), /*#__PURE__*/jsxRuntime.jsx("label", {
+	          className: "lbl company_com"
+	        }), /*#__PURE__*/jsxRuntime.jsx("label", {
+	          className: "lbl avncs-company_com"
+	        }), /*#__PURE__*/jsxRuntime.jsx("label", {
+	          className: "lbl btns"
+	        }), /*#__PURE__*/jsxRuntime.jsx("label", {
+	          className: "lbl efb-btns"
+	        }), /*#__PURE__*/jsxRuntime.jsx("label", {
+	          className: "lbl clr_msg"
+	        }), /*#__PURE__*/jsxRuntime.jsx("label", {
+	          className: "lbl clr_msg_btm"
+	        })]
+	      })]
 	    })
 	  });
 	};
 
-	reactDom.render( /*#__PURE__*/jsxRuntime.jsx(OIS_SCREEN, {}), renderTarget);
+	const OIS_TEST = () => {
+	  return /*#__PURE__*/jsxRuntime.jsx("div", {
+	    children: /*#__PURE__*/jsxRuntime.jsx("h1", {
+	      children: "Another page for button because yes"
+	    })
+	  });
+	};
+
+	function OIS_DISPLAY() {
+	  let [oisPage, setOisPage] = react.useState(0);
+	  let context = {
+	    oisPage: oisPage,
+	    setOisPage: setOisPage
+	  };
+
+	  switch (oisPage) {
+	    case 0:
+	      {
+	        return /*#__PURE__*/jsxRuntime.jsx(oisContext.Provider, {
+	          value: context,
+	          children: /*#__PURE__*/jsxRuntime.jsx(OIS_MAIN_PAGE, {})
+	        });
+	      }
+
+	    case 1:
+	      {
+	        return /*#__PURE__*/jsxRuntime.jsx(oisContext.Provider, {
+	          value: context,
+	          children: /*#__PURE__*/jsxRuntime.jsx(OIS_TEST, {})
+	        });
+	      }
+
+	    default:
+	      {
+	        return /*#__PURE__*/jsxRuntime.jsx("div", {
+	          children: /*#__PURE__*/jsxRuntime.jsx("h1", {
+	            children: "INOP"
+	          })
+	        });
+	      }
+	  }
+	}
+
+	reactDom.render( /*#__PURE__*/jsxRuntime.jsx(OIS_DISPLAY, {}), renderTarget);
 
 }());
 
     </script>
     <style id="A35X_BUNDLED_STYLE">
         /* same deal as above */
-        #text {
+        .main_page {
   position: absolute;
-  z-index: 1;
-  text-align: center;
-  font-size: 200px;
+  background-color: black;
+  width: 1280px;
+  height: 800px;
+  z-index: -2;
 }
+
+.lbl {
+  position: absolute;
+  font-family: "B612";
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0px;
+  z-index: -1;
+}
+
+.ois_menu {
+  position: absolute;
+  font-size: 23px;
+  border: 3px solid white;
+  top: 6px;
+  left: 16px;
+  height: 32px;
+  width: 350px;
+}
+
+.avncs {
+  position: absolute;
+  font-size: 18px;
+  border: 2px solid white;
+  top: 148px;
+  left: 40px;
+  height: 34px;
+  width: 193px;
+  line-height: 37px;
+  text-anchor: middle;
+}
+
+.company_com {
+  position: absolute;
+  border: 2px solid white;
+  top: 136px;
+  left: 251px;
+  height: 60px;
+  width: 218px;
+}
+
+.btns {
+  position: absolute;
+  border: 2px solid white;
+  top: 249px;
+  left: 251px;
+  height: 353px;
+  width: 836px;
+}
+
+.clr_msg {
+  position: absolute;
+  background-color: #7184b9;
+  top: 6px;
+  left: 372px;
+  height: 38px;
+  width: 900px;
+}
+
+.clr_msg_btm {
+  position: absolute;
+  background-color: white;
+  top: 42px;
+  left: 372px;
+  height: 2px;
+  width: 900px;
+}
+
+.avncs-company_com {
+  position: absolute;
+  background-color: white;
+  top: 166px;
+  left: 236px;
+  height: 2px;
+  width: 17px;
+}
+
+.efb-btns {
+  position: absolute;
+  background-color: white;
+  top: 417px;
+  left: 238px;
+  height: 2px;
+  width: 14px;
+}
+@font-face {
+  font-family: "B612";
+
+  src: url("/Pages/Fonts/B612-Bold.ttf");
+}
+
+.btn {
+  position: absolute;
+  border: 2px solid white;
+  border-color: #e5efff #57677f #8ca6cc #e5efff;
+  background-color: #b3c6e2;
+  color: whitesmoke;
+  padding: 14px 28px;
+  font-family: "B612";
+  border-radius: 2px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0px;
+}
+
+.btn:hover {
+  border: 2px solid #93cced;
+  border-radius: 2px;
+}
+
+.company-com {
+  position: absolute;
+  top: 149px;
+  left: 263px;
+  height: 40px;
+  width: 200px;
+  font-size: 17px;
+}
+
+.efb {
+  position: absolute;
+  top: 398px;
+  left: 38px;
+  height: 40px;
+  width: 200px;
+  font-size: 17px;
+}
+
+.clear {
+  position: absolute;
+  height: 35px;
+  width: 122px;
+  font-size: 18px;
+  top: 6px;
+  left: 377px;
+}
+
+.msg {
+  position: absolute;
+  height: 35px;
+  width: 77px;
+  font-size: 18px;
+  top: 6px;
+  left: 501px;
+  background-color: #00bcfa;
+  border-color: #00bcfa #0098c6 #00ace0 #00bcfa;
+}
+
+.msg:hover {
+  border-color: #00bcfa;
+}
+
+.to_perf {
+  position: absolute;
+  top: 260px;
+  left: 263px;
+  height: 40px;
+  width: 200px;
+  font-size: 17px;
+}
+
+.flt_ops_sts {
+  position: absolute;
+  top: 310px;
+  left: 263px;
+  height: 40px;
+  width: 200px;
+  font-size: 17px;
+}
+
+.ldg_perf {
+  position: absolute;
+  top: 360px;
+  left: 263px;
+  height: 40px;
+  width: 200px;
+  font-size: 17px;
+}
+
+.in-flt_perf {
+  position: absolute;
+  top: 410px;
+  left: 263px;
+  height: 40px;
+  width: 200px;
+  font-size: 17px;
+}
+
+.loadsheet {
+  position: absolute;
+  top: 460px;
+  left: 263px;
+  height: 40px;
+  width: 200px;
+  font-size: 17px;
+}
+
+.ops_library {
+  position: absolute;
+  top: 260px;
+  left: 470px;
+  height: 40px;
+  width: 200px;
+  font-size: 17px;
+}
+
+.enroute {
+  position: absolute;
+  top: 260px;
+  left: 677px;
+  height: 40px;
+  width: 200px;
+  font-size: 17px;
+}
+
+.terml_chart {
+  position: absolute;
+  top: 310px;
+  left: 677px;
+  height: 40px;
+  width: 200px;
+  font-size: 17px;
+}
+
+.load_box {
+  position: absolute;
+  top: 260px;
+  left: 884px;
+  height: 40px;
+  width: 200px;
+  font-size: 17px;
+}
+
+.export_box {
+  position: absolute;
+  top: 310px;
+  left: 884px;
+  height: 40px;
+  width: 200px;
+  font-size: 17px;
+}
+
     </style>
 </script>
 
