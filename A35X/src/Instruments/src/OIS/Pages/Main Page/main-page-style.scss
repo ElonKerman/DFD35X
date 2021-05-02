@@ -1,0 +1,82 @@
+.main_page {
+    background-color: black;
+    cursor: url();
+    z-index: -2;
+}
+.lbl {
+    position: absolute;
+    font-family: "B612";
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0px;
+    z-index: -1;
+}
+.ois_menu {
+    position: absolute;
+    font-size: 23px;
+    border: 3px solid white;
+    top: 6px;
+    left: 16px;
+    height: 32px;
+    width: 350px;
+}
+.avncs {
+    position: absolute;
+    font-size: 18px;
+    border: 2px solid white;
+    top: 148px;
+    left: 40px;
+    height: 34px;
+    width: 193px;
+    line-height: 37px;
+    text-anchor: middle;
+}
+.company_com {
+    position: absolute;
+    border: 2px solid white;
+    top: 136px;
+    left: 251px;
+    height: 60px;
+    width: 218px;
+}
+.btns {
+    position: absolute;
+    border: 2px solid white;
+    top: 249px;
+    left: 251px;
+    height: 353px;
+    width: 836px;
+}
+.clr_msg {
+    position: absolute;
+    background-color: rgb(113, 132, 185);
+    top: 6px;
+    left: 372px;
+    height: 38px;
+    width: 900px;
+}
+.clr_msg_btm {
+    position: absolute;
+    background-color: white;
+    top: 42px;
+    left: 372px;
+    height: 2px;
+    width: 900px;
+}
+.avncs-company_com {
+    position: absolute;
+    background-color: white;
+    top: 166px;
+    left: 236px;
+    height: 2px;
+    width: 17px;
+}
+.efb-btns {
+    position: absolute;
+    background-color: white;
+    top: 417px;
+    left: 238px;
+    height: 2px;
+    width: 14px;
+}

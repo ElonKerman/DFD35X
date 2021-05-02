@@ -1,0 +1,36 @@
+$outline-black: rgb(20,20,20);
+@font-face {
+    font-family: "ECAM Regular";
+    src: url("/Fonts/ECAMFontRegular.ttf");
+}
+@import '../mfd-main-style.scss';
+input
+{
+    position: absolute;
+    border: 2px solid;
+    font-size: 180%;
+    font-family: "ECAM Regular" !important;
+    box-sizing: border-box;
+    background-color: black;
+    border-radius: 5px;
+    border-color: $outline-black white white $outline-black;
+    text-transform: uppercase;
+    text-align: center;
+}
+.disabled{
+    background-color: $dark-grey;
+}
+input::placeholder
+{
+    color: orange;
+    text-align: center;
+}
+.disabled::placeholder
+{
+    color: grey;
+}
+
+input:hover
+{
+    border-color: cyan;
+}

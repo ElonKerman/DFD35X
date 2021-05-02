@@ -1,0 +1,61 @@
+@import '../../../mfd-main-style.scss';
+
+h2{
+    position: absolute;
+    right: 82.5%;
+    color: white;
+    font-size: 2.1vh; 
+    height: 5%;
+    padding-top: 1.5%;
+}
+button{
+    height: 5%;
+    font-size: 1.5vh;
+}
+.large-input
+{
+    width: 30%;
+}
+.less-large-input
+{
+    width: 20%;
+}
+.medium-input
+{
+    width: 15%;
+}
+.small-input
+{
+    width: 13%;
+}
+.large-button
+{
+    width: 25%;
+}
+.medium-button{
+    width: 22%;
+}
+.small-button{
+    width: 15%;
+}
+.small-tall-button
+{
+    width: 12%;
+    height: 7%;
+}
+.medium-tall-button{
+    width: 22%;
+    height: 7%;
+}
+.mode-dropdown
+{
+    height: 5%;
+}
+.pagesplitter
+{
+    position: absolute;
+    left: 2.5%;
+    width: 95%;
+    height: 0.5%;
+    background-color: $grey;
+}
