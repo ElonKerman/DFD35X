@@ -1,16 +1,17 @@
 import ReactDOM from 'react-dom'
+import React from 'react'
 import {useState} from 'react'
 import './efis-main-style.scss'
 import { render } from '../Hooks/index'
 import {useUpdate} from '../Hooks/hooks'
 import {useSimVar} from '../Hooks/simVars'
 
-import Mask from "./imgs/EFIS_MASK.png";
-import overlay from "./imgs/staticoverlay.png";
-import horizon from "./imgs/EFIS_PFD_HORIZON.png";
-import horizonDisp from "./imgs/EFIS_PFD_HORIZON_disp.png";
-import airspeedIndicator from "./imgs/EFIS_PFD_AIRSPEED_INDICATOR.png";
-import airspeedIndicatorOverlay from "./imgs/EFIS_PFD_AIRSPEED_INDICATOR.png";
+import Mask from './imgs/EFIS_MASK.png';
+import overlay from './imgs/staticoverlay.png';
+import horizon from './imgs/EFIS_PFD_HORIZON.png';
+import horizonDisp from './imgs/EFIS_PFD_HORIZON_disp.png';
+import airspeedIndicator from './imgs/EFIS_PFD_AIRSPEED_INDICATOR.png';
+import airspeedIndicatorOverlay from './imgs/EFIS_PFD_AIRSPEED_INDICATOR_OVERLAY.png';
 
 
 const EFIS_SCREEN = () => {
@@ -30,13 +31,6 @@ const EFIS_SCREEN = () => {
         setIAS(IASVar)
         setAltMSL(altMSLVar)
     })
-    
-    let altitudeTapeArray = []
-    for (const x of Array(84)) {
-        altitudeTapeArray.push(x)
-    }
-    altitudeTapeArray.reverse()
-
     return(
         <div>
             <div id="background">
@@ -65,10 +59,6 @@ const EFIS_SCREEN = () => {
             </div>
             <div id="airspeed_indicator_overlay">
                 <img src={airspeedIndicatorOverlay}/>
-            </div>
-
-            <div id="altitude_indicator">
-                <ul>{altitudeTapeArray.map((number, i) => <li key={i}>{number}</li>)}</ul>
             </div>
 
             <div id="info">

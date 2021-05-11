@@ -1,4 +1,4 @@
 {
-    "index": "./efis-main.jsx",
+    "index": "./efis-main.tsx",
     "isInteractive": false
 }
