@@ -1,0 +1,25 @@
+.waypoint-rev-menu
+{
+    position: absolute;
+    height: 85%;
+    width: 40%;
+    left: 21%;
+    top: -0.5%;
+    font-size: 135%;
+    border: 2px solid;
+    border-radius: 5px;
+    border-color: white black black white;
+    display: grid;
+    grid-template-rows: repeat(16, 6.25%);
+}
+.waypoint-rev-item
+{
+    padding-top: 3%;
+    padding-left: 3%;
+    border: 2px solid;
+    border-color: #404040;
+}
+.waypoint-rev-item:hover
+{
+    border-color: cyan;
+}

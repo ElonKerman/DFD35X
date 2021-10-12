@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './dropdown.scss'
 import DownArrow from  '../Assets/DownArrow.png'
 import {Button} from './button'
+import { useClickOutsideListenerRef } from './OutsideClickHook';
+import { Content } from './OutsideClickConent';
 
 export enum DropdownType
 {
     system_select,
-    general_bar
+    general
 }
 type DropdownProps =
 {
@@ -14,97 +16,89 @@ type DropdownProps =
     type: DropdownType;
     onSelect: (index: number) => void;
     offsetX?: number;
-    offseY?: number;
+    offsetY?: number;
     disabled?: boolean,
     innerColor?: string,
     className?: string,
-    label?: string
+    label?: string,
+    height?: string,
+    width?: string,
+    defaultIndex?: number,
+    noneOption?: boolean,
 }
 
-export class Dropdown extends React.Component<DropdownProps>
+export const Dropdown = (props: DropdownProps) =>
 {
-    state:
-    {
-        open: boolean,
-        selected: string
-    }
-    constructor(props: DropdownProps)
-    {
-        super(props);
-        this.state = {
-            open: false,
-            selected: props.items[0].toString()
-        }
-        this.selectItem = this.selectItem.bind(this);       
-        this.toggleOpen = this.toggleOpen.bind(this);
-    }
-    toggleOpen()
-    {
-        this.setState({open: !this.state.open});
-    }
-    selectItem(index: number)
+    const [open, setOpen] = useState(Boolean);
+    const [selected, selectState] = useState(String);
+
+    function selectItem(index: number)
     {
         console.log("Item Index is " + index)
-        this.props.onSelect(index);
-        this.setState({
-            selected: this.props.items[index].toString()
-        });
-        this.toggleOpen();
+        props.onSelect(index);
+        selectState(index >= 0 ? this.props.items[index].toString() : "NONE");
+        setOpen(true);
     }
-    render(){
-        if(!this.state.open)
-        { 
-            switch(this.props.type)
-            {
-                case(DropdownType.system_select):
-                    return(
-                            <Button disabled={this.props.disabled} textColor="cyan" posX={this.props.offsetX} posY={this.props.offseY} onClick={() => this.toggleOpen()} className={"bck-grey dropdown-system-body " + this.props.className}>
-                                <div className="bck-black drop-top-inner" style={{backgroundColor: this.props.innerColor}}> {this.state.selected}</div>
-                                <img className="drop-arrow-system" src={DownArrow} alt=""/>
-                            </Button>
-                    );
-                case(DropdownType.general_bar):
-                    return(
-                            <Button disabled={this.props.disabled} posX={this.props.offsetX} posY={this.props.offseY} onClick={() => this.toggleOpen()} className="bck-grey dropdown-general-body">
-                                {this.props.label}
-                                <img className="drop-arrow-general" src={DownArrow} alt=""/>
-                            </Button>
-                    );
-            }
+    if(props.disabled)
+        setOpen(false);
+    if(!open)
+    { 
+        switch(props.type)
+        {
+            case(DropdownType.system_select):
+                return(
+                        <Button disabled={props.disabled} textColor="cyan" posX={props.offsetX} posY={props.offsetY} onClick={() => setOpen(true)} className={"dropdown-system-body " + props.className}>
+                            <div className="bck-black drop-top-inner" style={{backgroundColor: props.innerColor}}> {selected}</div>
+                            <img className="drop-arrow-system" src={DownArrow} alt=""/>
+                        </Button>
+                );
+            case(DropdownType.general):
+                return(
+                        <Button height={props.height} width={props.width} disabled={props.disabled} posX={props.offsetX} posY={props.offsetY} onClick={() =>  setOpen(true)} className="dropdown-general-body">
+                            {props.label ? props.label : selected}
+                            <img className="drop-arrow-general" src={DownArrow} alt=""/>
+                        </Button>
+                );
         }
-        else{
-            var item_elements: Array<JSX.Element> = [];
-            this.props.items.map((item, index) => (
-                item_elements.push(<span style={{top: (index * (100 / this.props.items.length) + 5   + "%")}} onClick={() => this.selectItem(index)} className='drop-item'>{item}</span>)
-            ));           
-                
-            switch(this.props.type)
-            {
-                case(DropdownType.system_select):
-                    return(
-                            <Button disabled={this.props.disabled} textColor="cyan" posX={this.props.offsetX} posY={this.props.offseY} onClick={() => this.toggleOpen()} className={"bck-grey dropdown-system-body " + this.props.className}>
-                                <div style={{backgroundColor: this.props.innerColor}} className="bck-black drop-top-inner"> 
-                                    {this.state.selected}
-                                </div>
-                                <img className="drop-arrow-system" src={DownArrow} alt=""/>
-                                <div style={{height: (this.props.items.length * 80 + "%")}}className="bck-dark-grey frnt-white
+    }
+    else
+    {
+        var item_elements: Array<JSX.Element> = [];
+        if(props.noneOption)
+            item_elements.push(<span style={{top: "8px"}} onClick={() => selectItem(-1)} className='drop-item'>NONE</span>)
+        props.items.map((item, index) => (
+            item_elements.push(<span style={{top: (index + (props.noneOption ? 1 : 0)) * 22 + 5 + "px"}} onClick={() => selectItem(index)} className='drop-item'>{item}</span>)
+        ));                       
+        switch(props.type)
+        {
+            case(DropdownType.system_select):
+                return(
+                        <Button disabled={props.disabled} textColor="cyan" posX={props.offsetX} posY={props.offsetY} onClick={() => setOpen(false)} className={"dropdown-system-body " + props.className}>
+                            <div style={{backgroundColor: props.innerColor}} className="bck-black drop-top-inner"> 
+                                {selected}
+                            </div>
+                            <img className="drop-arrow-system" src={DownArrow} alt=""/>
+                            {/* <Content onClose={() => setOpen(false)}> */}
+                                <div style={{height: (item_elements.length * 22 + 3 + "px")}}className="bck-dark-grey frnt-white
                                 drop-lower-body">                        
                                     {item_elements}
                                 </div>
-                            </Button>
-                    );
-                case(DropdownType.general_bar):
-                return(
-                    <Button disabled={this.props.disabled} posX={this.props.offsetX} posY={this.props.offseY} onClick={() => this.toggleOpen()} className="bck-grey dropdown-general-body">
-                        {this.props.label}
-                        <img className="drop-arrow-general" src={DownArrow} alt=""/>
-                        <div style={{height: (this.props.items.length * 80 + "%")}}className="bck-dark-grey frnt-grey
+                            {/* </Content> */}
+                        </Button>
+                );
+            case(DropdownType.general):
+            return(
+                <Button height={props.height} width={props.width} disabled={props.disabled} posX={props.offsetX} posY={props.offsetY} onClick={() => setOpen(false)} className="dropdown-general-body">
+                    {props.label ? props.label : selected}
+                    <img className="drop-arrow-general" src={DownArrow} alt=""/>
+                    {/* <Content onClose={() => setOpen(false)}> */}
+                        <div style={{height: (item_elements.length * 22 + 3 + "px")}}className="bck-dark-grey frnt-grey
                         drop-lower-body">                         
                         {item_elements}
-                    </div>
+                        </div>
+                    {/* </Content> */}
                 </Button>
-                );
-            }
+            );
         }
-    }
+    }    
 }

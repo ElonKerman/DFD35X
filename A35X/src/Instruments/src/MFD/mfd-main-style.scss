@@ -15,19 +15,17 @@ h1{
 h2{
     margin: 0;
 }
+h3
+{
+    margin: 0;
+    position: absolute;
+    font-size: 150%;
+}
 /*Colours*/
 
 $grey:  #757575;
 $outline-black: rgb(10,10,10);
 $dark-grey: #404040;
-.bck-blue-grey
-{
-    background-color: #394a52;
-}
-.bck-grey
-{
-    background-color: $grey;
-}
 .frnt-grey
 {
     color: $grey;
@@ -35,6 +33,18 @@ $dark-grey: #404040;
 .frnt-white
 {
     color: white;
+}
+.frnt-dark-grey
+{
+    color: $dark-grey
+}
+.bck-blue-grey
+{
+    background-color: #394a52;
+}
+.bck-grey
+{
+    background-color: $grey;
 }
 .bck-dark-grey
 {
@@ -54,7 +64,7 @@ button{
     box-sizing: border-box;
     position: absolute;
     color: white;
-    background-color: $grey;
+    background-color: $dark-grey;
     border: 2px solid;
     border-radius: 5px;
     border-color: white black black white;
@@ -106,4 +116,9 @@ button:hover
     top: 4.25%;
     width: 92%;
     height: 80%;
+}
+.border-box
+{
+    position: absolute;
+    border: 1px solid white;
 }

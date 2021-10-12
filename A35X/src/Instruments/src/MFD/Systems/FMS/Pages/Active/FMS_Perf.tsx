@@ -1,6 +1,6 @@
 import React from 'react'
 
-export class FMS_Perf extends React.Component
+export class Page extends React.Component
 {
     render()
     {

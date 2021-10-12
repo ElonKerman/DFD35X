@@ -1,0 +1,22 @@
+.fpln-header
+{
+    height: 5%;
+    border: solid white;
+    border-width: 0 0 1px 0;
+}
+.fpln-body
+{
+    height: 80%;
+    border: solid white;
+    border-width: 0 0 1px 0;
+    overflow: hidden;
+}
+.scroll-arrow
+{
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: 17%;
+    right: 18%;
+    z-index: 1;
+}

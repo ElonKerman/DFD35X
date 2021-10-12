@@ -222,7 +222,6 @@ export class FlightPlanManager {
     public async clearFlightPlan(callback = EmptyCallback.Void): Promise<void> {
         await this._flightPlans[this._currentFlightPlanIndex].clearPlan();
         this._updateFlightPlanVersion();
-        console.log("cleared flight plan");
         callback();
     }
 
@@ -240,14 +239,12 @@ export class FlightPlanManager {
      * @param callback A callback to call when the operation has completed.
      */
     public async setOrigin(icao: string, callback = () => {}): Promise<void> {
-        console.log("Setting Origin to: " + icao);
 
         const currentFlightPlan = this._flightPlans[this._currentFlightPlanIndex];
         const airport = await this._parentInstrument.facilityLoader.getFacilityRaw(icao);
 
         await currentFlightPlan.clearPlan();
         await currentFlightPlan.addWaypoint(airport, 0);
-        console.log("Set Origin to: " + currentFlightPlan.waypoints[0].icao);
         this._updateFlightPlanVersion();
         
         callback();
@@ -813,7 +810,14 @@ export class FlightPlanManager {
 
         return -1;
     }
+    public getOriginRunwayIndex(): number {
+        const currentFlightPlan = this._flightPlans[this._currentFlightPlanIndex];
+        if (currentFlightPlan.hasOrigin) {
+            return currentFlightPlan.procedureDetails.originRunwayIndex;
+        }
 
+        return -1;
+    }
     /**
      * Gets the string value of the departure runway in the current flight plan.
      */
@@ -916,7 +920,7 @@ export class FlightPlanManager {
                 return;
             }
         }
-
+        
         if (currentFlightPlan.procedureDetails.departureRunwayIndex !== index) {
             currentFlightPlan.procedureDetails.departureRunwayIndex = index;
             await currentFlightPlan.buildDeparture();

@@ -35,9 +35,16 @@
     .drop-item
     {
         position: absolute;
-        left: 5%;
-        height: 95%;
-        width: 90%;     
+        left: 0;
+        height: 20px;
+        padding-top: 3px;
+        width: 100%;     
+        color: white;
+        border: 2px solid #404040;
+    }
+    .drop-item:hover
+    {
+        border-color: cyan;
     }
 }
 .drop-arrow-general
