@@ -6,8 +6,8 @@ import { ATC_COM_Sys } from './Systems/ATC_COM_Sys'
 import { SURV_Sys } from './Systems/SURV_Sys'
 import { Checklist_Sys } from './Systems/Checklist_Sys'
 import { FCU_BKUP_Sys } from './Systems/FCU_BKUP_Sys'
-import {useInstrument, useUpdate} from "../Hooks/hooks"
-import {FlightPlanManager} from "../flightplanning/FlightPlanManager"
+import { useInstrument, useUpdate } from "../Hooks/hooks"
+import { FlightPlanManager } from "../flightplanning/FlightPlanManager"
 import { render } from '../Hooks/index'
 import { FMCDataManager } from './A35X_FMCDataManager'
 import { MFD_StateManager } from './MFD_StateManager'
